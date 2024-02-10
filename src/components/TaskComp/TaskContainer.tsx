@@ -27,10 +27,14 @@ const TaskContainer = () => {
 
       <div className='space-y-4 mt-5'>
         {tasks.length ? (
-          tasks
-            .filter(filterTaskByPriority)
-            .sort((a, b) => b.taskId - a.taskId)
-            .map((task) => <TaskCard key={task.taskId} task={task} />)
+          tasks.filter(filterTaskByPriority).length ? (
+            tasks
+              .filter(filterTaskByPriority)
+              .sort((a, b) => b.taskId - a.taskId)
+              .map((task) => <TaskCard key={task.taskId} task={task} />)
+          ) : (
+            <DataNotFound message='No Tasks Found!' />
+          )
         ) : (
           <DataNotFound message='No Tasks Found!! Please, Add Some...' />
         )}
