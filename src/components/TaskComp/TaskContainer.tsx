@@ -27,7 +27,7 @@ const TaskContainer = () => {
         {tasks.length &&
           tasks
             .filter(filterTaskByPriority)
-            .sort((a, b) => a.taskId - b.taskId)
+            .sort((a, b) => b.taskId - a.taskId)
             .map((task) => <TaskCard key={task.taskId} task={task} />)}
       </div>
     </section>
