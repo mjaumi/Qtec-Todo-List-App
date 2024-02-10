@@ -21,6 +21,7 @@ const config: Config = {
         warning: '#ff9500',
         danger: '#ff3b2d',
         primary: '#ffffff',
+        secondary: '#ad03fc',
       },
     },
   },

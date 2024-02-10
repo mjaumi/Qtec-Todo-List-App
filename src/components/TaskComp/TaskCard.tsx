@@ -71,7 +71,16 @@ const TaskCard = ({ task }: { task: Task }) => {
         </div>
 
         <div className='flex items-center gap-4'>
-          <TaskTag tag={priority} extraClassNames='text-warning' />
+          <TaskTag
+            tag={priority}
+            extraClassNames={`${
+              priority === 'High'
+                ? 'text-secondary'
+                : priority === 'Medium'
+                ? 'text-warning'
+                : 'text-info'
+            }`}
+          />
 
           {isCompleted ? (
             <TaskTag tag='Completed' extraClassNames='text-success' />
