@@ -1,15 +1,21 @@
 import TaskContainer from '@/components/TaskComp/TaskContainer';
 import TaskCounter from '@/components/TaskComp/TaskCounter';
-import TaskContextProvider from '@/contexts/TaskContext';
+import dynamic from 'next/dynamic';
+
+// dynamically importing task context to avoid hydration error
+const DynamicTaskContext = dynamic(
+  () => import('@/contexts/TaskContext').then((mod) => mod.default),
+  { ssr: false }
+);
 
 export default function Home() {
   // rendering the home page here
   return (
     <main className='w-4/5 mx-auto py-10 space-y-10'>
-      <TaskContextProvider>
+      <DynamicTaskContext>
         <TaskCounter />
         <TaskContainer />
-      </TaskContextProvider>
+      </DynamicTaskContext>
     </main>
   );
 }

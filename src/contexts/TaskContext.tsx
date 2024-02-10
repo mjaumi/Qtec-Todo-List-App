@@ -19,14 +19,14 @@ const TaskContextProvider = ({ children }: { children: React.ReactNode }) => {
   // getting the tasks from the local storage here
   useMemo(() => {
     if (typeof window !== 'undefined') {
-      const localTasks = localStorage.getItem('tasks');
+      const localTasks = JSON.parse(localStorage.getItem('tasks') as string);
 
       if (localTasks) {
-        setTasks(JSON.parse(localTasks));
+        setTasks(localTasks);
       }
 
       if (localTasks && doRefetch) {
-        setTasks(JSON.parse(localTasks));
+        setTasks(localTasks);
         setDoRefetch(false);
       }
     }
