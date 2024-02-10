@@ -5,6 +5,7 @@ import { ImCancelCircle } from 'react-icons/im';
 import { MdDelete } from 'react-icons/md';
 import { toast } from 'react-toastify';
 import Button from '../CommonComp/Button';
+import EditTaskModal from '../CommonComp/Modals/EditTaskModal';
 import ParentModal from '../CommonComp/Modals/ParentModal';
 import TaskTag from './TaskTag';
 
@@ -14,6 +15,7 @@ const TaskCard = ({ task }: { task: Task }) => {
 
   // integration of react hooks here
   const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
+  const [showEditModal, setShowEditModal] = useState<boolean>(false);
 
   // integration of context hooks here
   const { tasks, refetch } = useTaskContext();
@@ -46,6 +48,7 @@ const TaskCard = ({ task }: { task: Task }) => {
     toast.success('Task Deleted Successfully!!');
 
     refetch();
+    setShowDeleteModal(false);
   };
 
   // rendering task card component here
@@ -76,7 +79,11 @@ const TaskCard = ({ task }: { task: Task }) => {
             <TaskTag tag='Incomplete' extraClassNames='text-danger' />
           )}
 
-          <Button title='Edit Task' type='button'>
+          <Button
+            title='Edit Task'
+            onClick={() => setShowEditModal(true)}
+            type='button'
+          >
             <FaRegEdit className='h-6 w-6 text-info' />
           </Button>
 
@@ -124,6 +131,17 @@ const TaskCard = ({ task }: { task: Task }) => {
             </div>
           </div>
         </div>
+      </ParentModal>
+
+      <ParentModal
+        isOpen={showEditModal}
+        onClose={() => setShowEditModal(false)}
+        showCloseBtn
+      >
+        <EditTaskModal
+          taskId={taskId}
+          closeModal={() => setShowEditModal(false)}
+        />
       </ParentModal>
     </>
   );

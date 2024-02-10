@@ -5,6 +5,7 @@ type ButtonProps = {
   extraClassNames?: string;
   onClick?: () => void;
   children: React.ReactNode;
+  isDisabled?: boolean;
 };
 
 // datatype for tag props declared here
@@ -27,12 +28,14 @@ type TextInputFieldProps = {
   name: string;
   placeholder: string;
   label: string;
+  value?: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 // datatype for custom dropdown field props declared here
 type DropdownFieldProps = {
   options: Array<string>;
+  value?: string;
   setFieldValue?: (key: string, value: string) => void;
 };
 

@@ -3,10 +3,14 @@
 import { useState } from 'react';
 import { FaChevronDown } from 'react-icons/fa6';
 
-const DropdownField = ({ options, setFieldValue }: DropdownFieldProps) => {
+const DropdownField = ({
+  options,
+  value: defaultValue,
+  setFieldValue,
+}: DropdownFieldProps) => {
   // integration of react hooks here
   const [showOptions, setShowOptions] = useState<boolean>(false);
-  const [value, setValue] = useState<string>('');
+  const [value, setValue] = useState<string>(defaultValue || '');
 
   // handler function to handle changing of dropdown values here
   const changeValueHandler = (value: string) => {

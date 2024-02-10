@@ -1,57 +1,63 @@
-'use client';
-
 import { useTaskContext } from '@/contexts/TaskContext';
 import { addEditTaskSchema } from '@/schemas';
 import { Form, Formik } from 'formik';
-import { CgAddR } from 'react-icons/cg';
+import { FaRegSave } from 'react-icons/fa';
 import { ImCancelCircle } from 'react-icons/im';
 import { toast } from 'react-toastify';
 import Button from '../Button';
 import DropdownField from '../Inputs/DropdownField';
 import TextInputField from '../Inputs/TextInputField';
 
-const AddTaskModal = ({ closeModal }: { closeModal: () => void }) => {
+const EditTaskModal = ({
+  taskId,
+  closeModal,
+}: {
+  taskId: number;
+  closeModal: () => void;
+}) => {
   // integration of context hooks here
   const { tasks, refetch } = useTaskContext();
 
-  console.log(tasks);
+  // fetching the task that needs to edit here
+  const taskToEdit = tasks.find((task) => task.taskId === taskId);
 
-  // rendering add task modal component here
+  // rendering edit task modal component here
   return (
     <div className='p-5'>
-      <h3 className='text-center font-medium text-2xl'>Add Task</h3>
+      <h3 className='text-center font-medium text-2xl'>Edit Task</h3>
 
       <Formik
         initialValues={{
-          task: '',
-          priority: '',
+          task: taskToEdit?.task || '',
+          priority: taskToEdit?.priority || '',
         }}
         validationSchema={addEditTaskSchema}
         onSubmit={(values) => {
-          let newTask: Task;
+          console.log(values);
 
-          if (tasks.length) {
-            newTask = {
-              taskId: tasks[tasks.length - 1].taskId + 1,
+          if (
+            taskToEdit?.task !== values.task ||
+            taskToEdit?.priority !== values.priority
+          ) {
+            const updatedTask = {
+              ...taskToEdit,
               task: values.task,
               priority: values.priority as Priority,
-              isCompleted: false,
             };
+
+            const indexOfUpdatedTask = tasks.indexOf(taskToEdit as Task);
+
+            tasks.splice(indexOfUpdatedTask, 1, updatedTask as Task);
+
+            localStorage.setItem('tasks', JSON.stringify([...tasks]));
+
+            toast.success('Task Updated Successfully!!');
+
+            refetch();
+            closeModal();
           } else {
-            newTask = {
-              taskId: 1,
-              task: values.task,
-              priority: values.priority as Priority,
-              isCompleted: false,
-            };
+            toast.error('Please Make Sure You Have Made Any Changes!!');
           }
-
-          localStorage.setItem('tasks', JSON.stringify([...tasks, newTask]));
-
-          toast.success('Task Added Successfully!!');
-
-          refetch();
-          closeModal();
         }}
       >
         {(props) => (
@@ -61,7 +67,10 @@ const AddTaskModal = ({ closeModal }: { closeModal: () => void }) => {
                 name='task'
                 label='Task'
                 placeholder='Write New Task Here...'
-                onChange={(e) => props.setFieldValue('task', e.target.value)}
+                value={props.values.task}
+                onChange={(e) => {
+                  props.setFieldValue('task', e.target.value);
+                }}
               />
 
               {props.errors.task && props.touched.task && (
@@ -75,6 +84,7 @@ const AddTaskModal = ({ closeModal }: { closeModal: () => void }) => {
               <p className='font-medium mb-1 ml-1'>Priority</p>
               <DropdownField
                 options={['', 'High', 'Medium', 'Low']}
+                value={props.values.priority}
                 setFieldValue={props.setFieldValue}
               />
 
@@ -99,8 +109,8 @@ const AddTaskModal = ({ closeModal }: { closeModal: () => void }) => {
                 type='submit'
                 extraClassNames='flex items-center justify-center gap-2 border border-success px-4 py-3 text-success'
               >
-                <CgAddR />
-                Add Task
+                <FaRegSave />
+                Save Task
               </Button>
             </div>
           </Form>
@@ -110,4 +120,4 @@ const AddTaskModal = ({ closeModal }: { closeModal: () => void }) => {
   );
 };
 
-export default AddTaskModal;
+export default EditTaskModal;

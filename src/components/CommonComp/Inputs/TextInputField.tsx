@@ -3,6 +3,7 @@ const TextInputField = ({
   label,
   onChange,
   placeholder,
+  value,
 }: TextInputFieldProps) => {
   // rendering custom text input field component here
   return (
@@ -14,6 +15,7 @@ const TextInputField = ({
         id={`${name}-input`}
         placeholder={placeholder}
         className='border border-slate-200 rounded-lg px-4 py-3 w-full focus:ring-info focus:outline-info'
+        value={value}
         onChange={onChange}
         autoComplete='off'
       />
