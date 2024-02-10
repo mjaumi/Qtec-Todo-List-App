@@ -13,6 +13,7 @@ const config: Config = {
       },
       boxShadow: {
         'todo-shadow': '0px 8px 16px 0px rgba(171, 190, 209, 0.40)',
+        'todo-card-shadow': '0px 4px 8px 0px rgba(171, 190, 209, 0.40)',
       },
       colors: {
         success: '#41ad49',
