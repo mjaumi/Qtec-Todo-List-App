@@ -4,7 +4,7 @@ import { createContext, useContext, useMemo, useState } from 'react';
 
 type TaskContextProps = {
   tasks: Array<Task>;
-  setDoRefetch: React.Dispatch<React.SetStateAction<boolean>>;
+  refetch: () => void;
 };
 
 // creating the context here
@@ -14,7 +14,6 @@ const TaskContext = createContext<TaskContextProps | null>(null);
 const TaskContextProvider = ({ children }: { children: React.ReactNode }) => {
   // integration of react hooks here
   const [tasks, setTasks] = useState<Array<Task>>([]);
-  const [doRefetch, setDoRefetch] = useState<boolean>(false);
 
   // getting the tasks from the local storage here
   useMemo(() => {
@@ -24,16 +23,20 @@ const TaskContextProvider = ({ children }: { children: React.ReactNode }) => {
       if (localTasks) {
         setTasks(localTasks);
       }
-
-      if (localTasks && doRefetch) {
-        setTasks(localTasks);
-        setDoRefetch(false);
-      }
     }
-  }, [doRefetch]);
+  }, []);
+
+  // function to refetch tasks after mutation declared here
+  const refetch = () => {
+    const localTasks = JSON.parse(localStorage.getItem('tasks') as string);
+
+    if (localTasks) {
+      setTasks(localTasks);
+    }
+  };
 
   return (
-    <TaskContext.Provider value={{ tasks, setDoRefetch }}>
+    <TaskContext.Provider value={{ tasks, refetch }}>
       {children}
     </TaskContext.Provider>
   );

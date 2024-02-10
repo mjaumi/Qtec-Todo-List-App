@@ -1,6 +1,8 @@
 import Header from '@/components/CommonComp/Header';
 import type { Metadata } from 'next';
 import { Poppins } from 'next/font/google';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import './globals.css';
 
 // initializing the font family here
@@ -28,6 +30,7 @@ export default function RootLayout({
       <body className='font-poppins min-h-screen bg-primary'>
         <Header />
         {children}
+        <ToastContainer position='bottom-center' />
       </body>
     </html>
   );

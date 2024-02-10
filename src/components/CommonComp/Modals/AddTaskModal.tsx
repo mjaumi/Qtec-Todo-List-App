@@ -5,13 +5,14 @@ import { addNewTaskSchema } from '@/schemas';
 import { Form, Formik } from 'formik';
 import { CgAddR } from 'react-icons/cg';
 import { ImCancelCircle } from 'react-icons/im';
+import { toast } from 'react-toastify';
 import Button from '../Button';
 import DropdownField from '../Inputs/DropdownField';
 import TextInputField from '../Inputs/TextInputField';
 
 const AddTaskModal = ({ closeModal }: { closeModal: () => void }) => {
   // integration of context hooks here
-  const { tasks, setDoRefetch } = useTaskContext();
+  const { tasks, refetch } = useTaskContext();
 
   console.log(tasks);
 
@@ -46,7 +47,10 @@ const AddTaskModal = ({ closeModal }: { closeModal: () => void }) => {
           }
 
           localStorage.setItem('tasks', JSON.stringify([...tasks, newTask]));
-          setDoRefetch(true);
+
+          toast.success('Task Added Successfully!!');
+
+          refetch();
           closeModal();
         }}
       >
