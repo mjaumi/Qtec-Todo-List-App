@@ -95,7 +95,7 @@ const EditTaskModal = ({
               )}
             </div>
 
-            <div className='flex items-center justify-end gap-5 pt-10'>
+            <div className='flex items-center justify-center md:justify-end gap-5 pt-10'>
               <Button
                 type='button'
                 onClick={() => closeModal()}

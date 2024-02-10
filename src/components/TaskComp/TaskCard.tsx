@@ -54,7 +54,7 @@ const TaskCard = ({ task }: { task: Task }) => {
   // rendering task card component here
   return (
     <>
-      <div className='flex items-center justify-between bg-primary shadow-todo-card-shadow px-5 py-4 rounded-xl'>
+      <div className='flex flex-col gap-4 md:flex-row items-center justify-between bg-primary shadow-todo-card-shadow px-5 py-4 rounded-xl'>
         <div className='flex items-center gap-2'>
           <input
             title='Mark As Completed'
@@ -64,7 +64,9 @@ const TaskCard = ({ task }: { task: Task }) => {
             defaultChecked={isCompleted}
           />
           <p
-            className={`text-lg ${isCompleted && 'text-success line-through'}`}
+            className={`flex-1 text-lg break-all ${
+              isCompleted && 'text-success line-through'
+            }`}
           >
             {taskText}
           </p>
@@ -119,7 +121,7 @@ const TaskCard = ({ task }: { task: Task }) => {
           </p>
 
           <div>
-            <div className='flex items-center justify-end gap-5 mt-5'>
+            <div className='flex items-center justify-center md:justify-end gap-5 mt-5'>
               <Button
                 type='button'
                 onClick={() => setShowDeleteModal(false)}

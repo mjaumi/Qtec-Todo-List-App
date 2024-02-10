@@ -12,6 +12,7 @@ const TaskContainer = () => {
 
   const { priority } = usePriorityContext();
 
+  // function to filter task based on priority here
   const filterTaskByPriority = (task: Task) => {
     if (priority === '') {
       return true;

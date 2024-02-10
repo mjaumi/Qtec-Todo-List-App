@@ -11,7 +11,7 @@ const TaskCounter = () => {
 
   // rendering task counter component here
   return (
-    <section className='w-3/5 mx-auto p-5 rounded-lg shadow-todo-shadow flex items-center justify-between'>
+    <section className='full lg:w-3/5 mx-auto p-5 rounded-lg shadow-todo-shadow flex flex-col gap-4 md:flex-row items-center justify-between'>
       <h3 className='text-2xl font-medium'>
         Total Tasks:{' '}
         <span className='font-normal text-info'>{tasks.length}</span>
