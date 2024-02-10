@@ -11,6 +11,16 @@ const config: Config = {
       fontFamily: {
         poppins: ['var(--font-poppins)'],
       },
+      boxShadow: {
+        'todo-shadow': '0px 8px 16px 0px rgba(171, 190, 209, 0.40)',
+      },
+      colors: {
+        success: '#41ad49',
+        info: '#069af1',
+        warning: '#ff9500',
+        danger: '#ff3b2d',
+        primary: '#ffffff',
+      },
     },
   },
   plugins: [],
