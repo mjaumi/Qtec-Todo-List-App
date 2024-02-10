@@ -1,3 +1,6 @@
+'use client';
+
+import { useTaskContext } from '@/contexts/TaskContext';
 import { addNewTaskSchema } from '@/schemas';
 import { Form, Formik } from 'formik';
 import { CgAddR } from 'react-icons/cg';
@@ -6,7 +9,12 @@ import Button from '../Button';
 import DropdownField from '../Inputs/DropdownField';
 import TextInputField from '../Inputs/TextInputField';
 
-const AddTaskModal = () => {
+const AddTaskModal = ({ closeModal }: { closeModal: () => void }) => {
+  // integration of context hooks here
+  const { tasks, setDoRefetch } = useTaskContext();
+
+  console.log(tasks);
+
   // rendering add task modal component here
   return (
     <div className='p-5'>
@@ -19,7 +27,27 @@ const AddTaskModal = () => {
         }}
         validationSchema={addNewTaskSchema}
         onSubmit={(values) => {
-          console.log(values);
+          let newTask: Task;
+
+          if (tasks.length) {
+            newTask = {
+              taskId: tasks[tasks.length - 1].taskId + 1,
+              task: values.task,
+              priority: values.priority as Priority,
+              isCompleted: false,
+            };
+          } else {
+            newTask = {
+              taskId: 1,
+              task: values.task,
+              priority: values.priority as Priority,
+              isCompleted: false,
+            };
+          }
+
+          localStorage.setItem('tasks', JSON.stringify([...tasks, newTask]));
+          setDoRefetch(true);
+          closeModal();
         }}
       >
         {(props) => (
@@ -56,6 +84,7 @@ const AddTaskModal = () => {
             <div className='flex items-center justify-end gap-5 pt-10'>
               <Button
                 type='button'
+                onClick={() => closeModal()}
                 extraClassNames='flex items-center justify-center gap-2 border border-danger px-4 py-3 text-danger'
               >
                 <ImCancelCircle />

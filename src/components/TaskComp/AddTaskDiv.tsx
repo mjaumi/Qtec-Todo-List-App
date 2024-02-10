@@ -29,7 +29,7 @@ const AddTaskDiv = () => {
         onClose={() => setShowAddModal(false)}
         showCloseBtn
       >
-        <AddTaskModal />
+        <AddTaskModal closeModal={() => setShowAddModal(false)} />
       </ParentModal>
     </div>
   );

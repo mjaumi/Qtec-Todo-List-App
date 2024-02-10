@@ -36,10 +36,13 @@ type DropdownFieldProps = {
   setFieldValue?: (key: string, value: string) => void;
 };
 
+// datatype for priority declared here
+type Priority = 'High' | 'Medium' | 'Low';
+
 // datatype for task object declared here
 type Task = {
   taskId: number;
   task: string;
-  priority: 'High' | 'Medium' | 'Low';
+  priority: Priority;
   isCompleted: boolean;
 };
