@@ -14,8 +14,6 @@ const AddTaskModal = ({ closeModal }: { closeModal: () => void }) => {
   // integration of context hooks here
   const { tasks, refetch } = useTaskContext();
 
-  console.log(tasks);
-
   // rendering add task modal component here
   return (
     <div className='p-5'>

@@ -33,8 +33,6 @@ const EditTaskModal = ({
         }}
         validationSchema={addEditTaskSchema}
         onSubmit={(values) => {
-          console.log(values);
-
           if (
             taskToEdit?.task !== values.task ||
             taskToEdit?.priority !== values.priority
