@@ -1,5 +1,5 @@
 import { useTaskContext } from '@/contexts/TaskContext';
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { FaRegEdit } from 'react-icons/fa';
 import { ImCancelCircle } from 'react-icons/im';
 import { MdDelete } from 'react-icons/md';
@@ -17,6 +17,25 @@ const TaskCard = ({ task }: { task: Task }) => {
 
   // integration of context hooks here
   const { tasks, refetch } = useTaskContext();
+
+  // handler function to handle 'mark as complete' feature
+  const markTaskAsCompletedHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    const newUpdatedTasks = tasks.map((task) => {
+      if (task.taskId === taskId) {
+        return {
+          ...task,
+          isCompleted: e.target.checked,
+        };
+      }
+
+      return task;
+    });
+
+    localStorage.setItem('tasks', JSON.stringify(newUpdatedTasks));
+
+    toast.success('Task Updated Successfully!!');
+    refetch();
+  };
 
   // handler function to handler delete task feature here
   const deleteTaskHandler = () => {
@@ -38,9 +57,14 @@ const TaskCard = ({ task }: { task: Task }) => {
             title='Mark As Completed'
             type='checkbox'
             className='appearance-none w-6 h-6 rounded-full border border-slate-300 checked:bg-success checked:border-transparent focus:outline-none focus:ring-2 focus:ring-success duration-300 cursor-pointer'
+            onChange={(e) => markTaskAsCompletedHandler(e)}
             defaultChecked={isCompleted}
           />
-          <p className='text-lg'>{taskText}</p>
+          <p
+            className={`text-lg ${isCompleted && 'text-success line-through'}`}
+          >
+            {taskText}
+          </p>
         </div>
 
         <div className='flex items-center gap-4'>
