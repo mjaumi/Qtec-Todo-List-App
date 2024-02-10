@@ -1,4 +1,4 @@
-const Button = ({ title, type, extraClassNames, children }: IButtonProps) => {
+const Button = ({ title, type, extraClassNames, children }: ButtonProps) => {
   // rendering custom button component here
   return (
     <button

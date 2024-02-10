@@ -1,6 +1,7 @@
 import { FaRegEdit } from 'react-icons/fa';
 import { MdDelete } from 'react-icons/md';
 import Button from '../CommonComp/Button';
+import TaskTag from './TaskTag';
 
 const TaskCard = () => {
   // rendering task card component here
@@ -16,13 +17,9 @@ const TaskCard = () => {
       </div>
 
       <div className='flex items-center gap-4'>
-        <p className='text-sm text-warning border border-slate-200 px-2 py-1 rounded-lg'>
-          High
-        </p>
+        <TaskTag tag='High' extraClassNames='text-warning' />
 
-        <p className='text-sm text-success border border-slate-200 px-2 py-1 rounded-lg'>
-          Completed
-        </p>
+        <TaskTag tag='Completed' extraClassNames='text-success' />
 
         <Button title='Edit Task' type='button'>
           <FaRegEdit className='h-6 w-6 text-info' />
