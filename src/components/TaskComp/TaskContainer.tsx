@@ -2,6 +2,7 @@
 
 import { usePriorityContext } from '@/contexts/PriorityContext';
 import { useTaskContext } from '@/contexts/TaskContext';
+import DataNotFound from '../CommonComp/DataNotFound';
 import AddTaskDiv from './AddTaskDiv';
 import TaskCard from './TaskCard';
 
@@ -24,11 +25,14 @@ const TaskContainer = () => {
       <AddTaskDiv />
 
       <div className='space-y-4 mt-5'>
-        {tasks.length &&
+        {tasks.length ? (
           tasks
             .filter(filterTaskByPriority)
             .sort((a, b) => b.taskId - a.taskId)
-            .map((task) => <TaskCard key={task.taskId} task={task} />)}
+            .map((task) => <TaskCard key={task.taskId} task={task} />)
+        ) : (
+          <DataNotFound message='No Tasks Found!! Please, Add Some...' />
+        )}
       </div>
     </section>
   );
