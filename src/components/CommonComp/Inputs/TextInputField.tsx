@@ -15,6 +15,7 @@ const TextInputField = ({
         placeholder={placeholder}
         className='border border-slate-200 rounded-lg px-4 py-3 w-full focus:ring-info focus:outline-info'
         onChange={onChange}
+        autoComplete='off'
       />
     </label>
   );

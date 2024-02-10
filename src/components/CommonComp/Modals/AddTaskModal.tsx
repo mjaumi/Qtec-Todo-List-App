@@ -1,3 +1,4 @@
+import { addNewTaskSchema } from '@/schemas';
 import { Form, Formik } from 'formik';
 import { CgAddR } from 'react-icons/cg';
 import { ImCancelCircle } from 'react-icons/im';
@@ -16,6 +17,7 @@ const AddTaskModal = () => {
           task: '',
           priority: '',
         }}
+        validationSchema={addNewTaskSchema}
         onSubmit={(values) => {
           console.log(values);
         }}
@@ -29,6 +31,12 @@ const AddTaskModal = () => {
                 placeholder='Write New Task Here...'
                 onChange={(e) => props.setFieldValue('task', e.target.value)}
               />
+
+              {props.errors.task && props.touched.task && (
+                <span className='inline-block text-danger mt-1 ml-1'>
+                  {props.errors.task}
+                </span>
+              )}
             </div>
 
             <div>
@@ -37,6 +45,12 @@ const AddTaskModal = () => {
                 options={['', 'High', 'Medium', 'Low']}
                 setFieldValue={props.setFieldValue}
               />
+
+              {props.errors.priority && props.touched.priority && (
+                <span className='inline-block text-danger mt-1 ml-1'>
+                  {props.errors.priority}
+                </span>
+              )}
             </div>
 
             <div className='flex items-center justify-end gap-5 pt-10'>
