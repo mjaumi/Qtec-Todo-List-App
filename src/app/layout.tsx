@@ -1,4 +1,5 @@
 import Header from '@/components/CommonComp/Header';
+import PriorityContextProvider from '@/contexts/PriorityContext';
 import type { Metadata } from 'next';
 import { Poppins } from 'next/font/google';
 import { ToastContainer } from 'react-toastify';
@@ -28,8 +29,10 @@ export default function RootLayout({
   return (
     <html lang='en' className={`${poppins.variable}`}>
       <body className='font-poppins min-h-screen bg-primary'>
-        <Header />
-        {children}
+        <PriorityContextProvider>
+          <Header />
+          {children}
+        </PriorityContextProvider>
         <ToastContainer position='bottom-center' />
       </body>
     </html>

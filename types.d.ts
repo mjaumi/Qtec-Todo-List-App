@@ -34,9 +34,10 @@ type TextInputFieldProps = {
 
 // datatype for custom dropdown field props declared here
 type DropdownFieldProps = {
-  options: Array<string>;
+  options: Array<Priority | ''>;
   value?: string;
   setFieldValue?: (key: string, value: string) => void;
+  isFilter?: boolean;
 };
 
 // datatype for priority declared here

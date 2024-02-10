@@ -2,6 +2,7 @@
 
 import { createContext, useContext, useMemo, useState } from 'react';
 
+// datatype of task context props declared here
 type TaskContextProps = {
   tasks: Array<Task>;
   refetch: () => void;
@@ -35,6 +36,7 @@ const TaskContextProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
+  // rendering the task context provider here
   return (
     <TaskContext.Provider value={{ tasks, refetch }}>
       {children}

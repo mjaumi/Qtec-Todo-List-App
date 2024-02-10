@@ -13,7 +13,7 @@ const Header = () => {
         <div className='flex items-center gap-2'>
           <FaFilter className='text-info h-6 w-6' />
           <div className='w-[200px]'>
-            <DropdownField options={['--Select--', 'Low', 'Medium', 'High']} />
+            <DropdownField options={['', 'Low', 'Medium', 'High']} isFilter />
           </div>
         </div>
       </div>
